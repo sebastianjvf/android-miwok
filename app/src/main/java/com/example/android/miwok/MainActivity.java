@@ -46,5 +46,17 @@ public class MainActivity extends AppCompatActivity {
         TextView numbersTextView = (TextView) findViewById(R.id.numbers);
         numbersTextView.setOnClickListener(new OpenActivityClickListener(this, NumbersActivity.class));
 
+        // Add a clickListener to numbersTextView
+        TextView familyTextView = (TextView) findViewById(R.id.family);
+        familyTextView.setOnClickListener(new OpenActivityClickListener(this, FamilyActivity.class));
+
+        // Add a clickListener to numbersTextView
+        TextView colorsTextView = (TextView) findViewById(R.id.colors);
+        colorsTextView.setOnClickListener(new OpenActivityClickListener(this, ColorsActivity.class));
+
+        // Add a clickListener to numbersTextView
+        TextView phrasesTextView = (TextView) findViewById(R.id.phrases);
+        phrasesTextView.setOnClickListener(new OpenActivityClickListener(this, PhrasesActivity.class));
+
     }
 }
