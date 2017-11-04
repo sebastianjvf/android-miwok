@@ -15,8 +15,11 @@
  */
 package com.example.android.miwok;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
@@ -24,5 +27,24 @@ public class NumbersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
+
+        // Add words and their translations to the numbers list
+        ArrayList<Word> englishWords = new ArrayList<Word>();
+        englishWords.add(new Word("one", "lutti"));
+        englishWords.add(new Word("two", "otiiko"));
+        englishWords.add(new Word("three", "tolookosu"));
+        englishWords.add(new Word("four", "oyyisa"));
+        englishWords.add(new Word("five", "massokka"));
+        englishWords.add(new Word("six", "temmokka"));
+        englishWords.add(new Word("seven", "kenekaku"));
+        englishWords.add(new Word("eight", "kawinta"));
+        englishWords.add(new Word("nine", "wo’e"));
+        englishWords.add(new Word("ten", "na’aacha"));
+
+        // Use a custom ArrayAdapter to fill the ListView with word items
+        WordAdapter adapter = new WordAdapter(this, englishWords);
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        listView.setAdapter(adapter);
     }
 }
