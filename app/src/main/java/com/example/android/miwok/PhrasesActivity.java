@@ -15,14 +15,36 @@
  */
 package com.example.android.miwok;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class PhrasesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phrases);
+        setContentView(R.layout.word_list);
+
+        // Add words and their translations to the numbers list
+        ArrayList<Word> englishWords = new ArrayList<Word>();
+        englishWords.add(new Word("minto wuksus?", "Where are you going?"));
+        englishWords.add(new Word("tinnә oyaase'nә?", "What is your name?"));
+        englishWords.add(new Word("oyaaset...", "My name is..."));
+        englishWords.add(new Word("michәksәs?", "How are you feeling?"));
+        englishWords.add(new Word("kuchi achit.", "I’m feeling good."));
+        englishWords.add(new Word("әәnәs'aa?", "Are you coming?"));
+        englishWords.add(new Word("hәә’ әәnәm", "Yes, I am comming."));
+        englishWords.add(new Word("әәnәm", "I’m coming."));
+        englishWords.add(new Word("yoowutis", "Let’s go."));
+        englishWords.add(new Word("әnni'nem", "Come here."));
+
+        // Use a custom ArrayAdapter to fill the ListView with word items
+        WordAdapter adapter = new WordAdapter(this, englishWords);
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        listView.setAdapter(adapter);
     }
 }

@@ -15,14 +15,34 @@
  */
 package com.example.android.miwok;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ColorsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_colors);
+        setContentView(R.layout.word_list);
+
+        // Add words and their translations to the numbers list
+        ArrayList<Word> englishWords = new ArrayList<Word>();
+        englishWords.add(new Word("weṭeṭṭi", "red"));
+        englishWords.add(new Word("chokokki", "green"));
+        englishWords.add(new Word("ṭakaakki", "brown"));
+        englishWords.add(new Word("ṭopoppi", "gray"));
+        englishWords.add(new Word("kululli", "black"));
+        englishWords.add(new Word("kelelli", "white"));
+        englishWords.add(new Word("ṭopiisә", "dusty yellow"));
+        englishWords.add(new Word("chiwiiṭә", "mustard yellow"));
+
+        // Use a custom ArrayAdapter to fill the ListView with word items
+        WordAdapter adapter = new WordAdapter(this, englishWords);
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        listView.setAdapter(adapter);
     }
 }

@@ -26,20 +26,20 @@ public class NumbersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_numbers);
+        setContentView(R.layout.word_list);
 
         // Add words and their translations to the numbers list
         ArrayList<Word> englishWords = new ArrayList<Word>();
-        englishWords.add(new Word("one", "lutti"));
-        englishWords.add(new Word("two", "otiiko"));
-        englishWords.add(new Word("three", "tolookosu"));
-        englishWords.add(new Word("four", "oyyisa"));
-        englishWords.add(new Word("five", "massokka"));
-        englishWords.add(new Word("six", "temmokka"));
-        englishWords.add(new Word("seven", "kenekaku"));
-        englishWords.add(new Word("eight", "kawinta"));
-        englishWords.add(new Word("nine", "wo’e"));
-        englishWords.add(new Word("ten", "na’aacha"));
+        englishWords.add(new Word( "lutti", "one"));
+        englishWords.add(new Word( "otiiko", "two"));
+        englishWords.add(new Word( "tolookosu","three"));
+        englishWords.add(new Word("oyyisa","four"));
+        englishWords.add(new Word("massokka","five"));
+        englishWords.add(new Word("temmokka","six"));
+        englishWords.add(new Word("kenekaku", "seven"));
+        englishWords.add(new Word("kawinta","eight"));
+        englishWords.add(new Word("wo’e","nine"));
+        englishWords.add(new Word("na’aacha","ten"));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
         WordAdapter adapter = new WordAdapter(this, englishWords);
