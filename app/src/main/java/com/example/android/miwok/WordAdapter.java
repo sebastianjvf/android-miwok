@@ -14,8 +14,11 @@ import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    public WordAdapter(@NonNull Context context, @NonNull List<Word> objects) {
+    int colourResourceId;
+
+    public WordAdapter(@NonNull Context context, @NonNull List<Word> objects, int colourResourceId) {
         super(context, R.layout.list_item_image_play, objects);
+        this.colourResourceId = colourResourceId;
     }
 
     /**
@@ -41,6 +44,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Get the word at the given position
         Word currentWord = getItem(position);
 
+        // Set background colour
+        listItemView.findViewById(R.id.list_item_text).setBackgroundColor(getContext().getResources().getColor(colourResourceId));
+
         // Populate the list item
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_word);
         miwokTextView.setText(currentWord.getMiwokTranslation());
@@ -50,7 +56,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         ImageView wordImage = (ImageView) listItemView.findViewById(R.id.word_image);
 
-        if(currentWord.getImageResourceId() != -1) {
+        if (currentWord.getImageResourceId() != -1) {
             wordImage.setImageResource(currentWord.getImageResourceId());
             wordImage.setVisibility(View.VISIBLE);
         } else {

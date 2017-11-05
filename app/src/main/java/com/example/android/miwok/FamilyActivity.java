@@ -42,7 +42,7 @@ public class FamilyActivity extends AppCompatActivity {
         englishWords.add(new Word("paapa", "grandfather", R.drawable.family_grandfather));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
-        WordAdapter adapter = new WordAdapter(this, englishWords);
+        WordAdapter adapter = new WordAdapter(this, englishWords, R.color.category_family);
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);

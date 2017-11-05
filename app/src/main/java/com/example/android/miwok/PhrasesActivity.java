@@ -42,7 +42,7 @@ public class PhrasesActivity extends AppCompatActivity {
         englishWords.add(new Word("әnni'nem", "Come here."));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
-        WordAdapter adapter = new WordAdapter(this, englishWords);
+        WordAdapter adapter = new WordAdapter(this, englishWords, R.color.category_phrases);
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);
