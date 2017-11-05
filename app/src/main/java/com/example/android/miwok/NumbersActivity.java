@@ -30,16 +30,16 @@ public class NumbersActivity extends AppCompatActivity {
 
         // Add words and their translations to the numbers list
         ArrayList<Word> englishWords = new ArrayList<Word>();
-        englishWords.add(new Word( "lutti", "one"));
-        englishWords.add(new Word( "otiiko", "two"));
-        englishWords.add(new Word( "tolookosu","three"));
-        englishWords.add(new Word("oyyisa","four"));
-        englishWords.add(new Word("massokka","five"));
-        englishWords.add(new Word("temmokka","six"));
-        englishWords.add(new Word("kenekaku", "seven"));
-        englishWords.add(new Word("kawinta","eight"));
-        englishWords.add(new Word("wo’e","nine"));
-        englishWords.add(new Word("na’aacha","ten"));
+        englishWords.add(new Word( "lutti", "one", R.drawable.number_one));
+        englishWords.add(new Word( "otiiko", "two", R.drawable.number_two));
+        englishWords.add(new Word( "tolookosu","three", R.drawable.number_three));
+        englishWords.add(new Word("oyyisa","four", R.drawable.number_four));
+        englishWords.add(new Word("massokka","five", R.drawable.number_five));
+        englishWords.add(new Word("temmokka","six", R.drawable.number_six));
+        englishWords.add(new Word("kenekaku", "seven", R.drawable.number_seven));
+        englishWords.add(new Word("kawinta","eight", R.drawable.number_eight));
+        englishWords.add(new Word("wo’e","nine" , R.drawable.number_nine));
+        englishWords.add(new Word("na’aacha","ten", R.drawable.number_ten));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
         WordAdapter adapter = new WordAdapter(this, englishWords);
