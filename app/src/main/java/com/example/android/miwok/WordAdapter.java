@@ -52,6 +52,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         if(currentWord.getImageResourceId() != -1) {
             wordImage.setImageResource(currentWord.getImageResourceId());
+            wordImage.setVisibility(View.VISIBLE);
         } else {
             wordImage.setVisibility(View.GONE);
         }
