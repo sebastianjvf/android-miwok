@@ -30,14 +30,14 @@ public class ColorsActivity extends AppCompatActivity {
 
         // Add words and their translations to the numbers list
         ArrayList<Word> englishWords = new ArrayList<Word>();
-        englishWords.add(new Word("weṭeṭṭi", "red", R.drawable.color_red));
-        englishWords.add(new Word("chokokki", "green", R.drawable.color_green));
-        englishWords.add(new Word("ṭakaakki", "brown", R.drawable.color_brown));
-        englishWords.add(new Word("ṭopoppi", "gray", R.drawable.color_gray));
-        englishWords.add(new Word("kululli", "black", R.drawable.color_black));
-        englishWords.add(new Word("kelelli", "white", R.drawable.color_white));
-        englishWords.add(new Word("ṭopiisә", "dusty yellow", R.drawable.color_dusty_yellow));
-        englishWords.add(new Word("chiwiiṭә", "mustard yellow", R.drawable.color_mustard_yellow));
+        englishWords.add(new Word("weṭeṭṭi", "red", R.drawable.color_red, R.raw.color_red));
+        englishWords.add(new Word("chokokki", "green", R.drawable.color_green, R.raw.color_green));
+        englishWords.add(new Word("ṭakaakki", "brown", R.drawable.color_brown, R.raw.color_brown));
+        englishWords.add(new Word("ṭopoppi", "gray", R.drawable.color_gray, R.raw.color_gray));
+        englishWords.add(new Word("kululli", "black", R.drawable.color_black, R.raw.color_black));
+        englishWords.add(new Word("kelelli", "white", R.drawable.color_white, R.raw.color_white));
+        englishWords.add(new Word("ṭopiisә", "dusty yellow", R.drawable.color_dusty_yellow, R.raw.color_dusty_yellow));
+        englishWords.add(new Word("chiwiiṭә", "mustard yellow", R.drawable.color_mustard_yellow, R.raw.color_mustard_yellow));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
         WordAdapter adapter = new WordAdapter(this, englishWords, R.color.category_colors);

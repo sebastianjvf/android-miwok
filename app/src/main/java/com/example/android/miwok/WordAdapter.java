@@ -42,7 +42,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
         // Get the word at the given position
-        Word currentWord = getItem(position);
+        final Word currentWord = getItem(position);
 
         // Set background colour
         listItemView.findViewById(R.id.list_item_text).setBackgroundColor(getContext().getResources().getColor(colourResourceId));

@@ -30,16 +30,16 @@ public class FamilyActivity extends AppCompatActivity {
 
         // Add words and their translations to the numbers list
         ArrayList<Word> englishWords = new ArrayList<Word>();
-        englishWords.add(new Word("әpә", "father", R.drawable.family_father));
-        englishWords.add(new Word("әṭa", "mother", R.drawable.family_mother));
-        englishWords.add(new Word("angsi", "son", R.drawable.family_son));
-        englishWords.add(new Word("tune", "daughter", R.drawable.family_daughter));
-        englishWords.add(new Word("taachi", "older brother", R.drawable.family_older_brother));
-        englishWords.add(new Word("chalitti", "younger brother", R.drawable.family_younger_brother));
-        englishWords.add(new Word("teṭe", "older sister", R.drawable.family_older_sister));
-        englishWords.add(new Word("kolliti", "younger sister", R.drawable.family_younger_sister));
-        englishWords.add(new Word("ama", "grandmother", R.drawable.family_grandmother));
-        englishWords.add(new Word("paapa", "grandfather", R.drawable.family_grandfather));
+        englishWords.add(new Word("әpә", "father", R.drawable.family_father, R.raw.family_father));
+        englishWords.add(new Word("әṭa", "mother", R.drawable.family_mother, R.raw.family_mother));
+        englishWords.add(new Word("angsi", "son", R.drawable.family_son, R.raw.family_son));
+        englishWords.add(new Word("tune", "daughter", R.drawable.family_daughter, R.raw.family_daughter));
+        englishWords.add(new Word("taachi", "older brother", R.drawable.family_older_brother, R.raw.family_older_brother));
+        englishWords.add(new Word("chalitti", "younger brother", R.drawable.family_younger_brother, R.raw.family_younger_brother));
+        englishWords.add(new Word("teṭe", "older sister", R.drawable.family_older_sister, R.raw.family_older_sister));
+        englishWords.add(new Word("kolliti", "younger sister", R.drawable.family_younger_sister, R.raw.family_younger_sister));
+        englishWords.add(new Word("ama", "grandmother", R.drawable.family_grandmother, R.raw.family_grandmother));
+        englishWords.add(new Word("paapa", "grandfather", R.drawable.family_grandfather, R.raw.family_grandfather));
 
         // Use a custom ArrayAdapter to fill the ListView with word items
         WordAdapter adapter = new WordAdapter(this, englishWords, R.color.category_family);
