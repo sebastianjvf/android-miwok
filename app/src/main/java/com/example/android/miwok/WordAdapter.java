@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -62,6 +63,14 @@ public class WordAdapter extends ArrayAdapter<Word> {
         } else {
             wordImage.setVisibility(View.GONE);
         }
+
+        listItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), currentWord.getSoundResourceId());
+                mediaPlayer.start(); // no need to call prepare(); create() does that for you
+            }
+        });
 
         return listItemView;
     }
