@@ -19,6 +19,7 @@
     android:layout_height="match_parent"
     android:divider="@color/tan_background"
     android:dividerHeight="1dp"
+    android:drawSelectorOnTop="true"
     android:orientation="vertical"
     tools:context="com.example.android.miwok.NumbersActivity">
 
