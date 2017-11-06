@@ -69,6 +69,13 @@ public class WordAdapter extends ArrayAdapter<Word> {
             public void onClick(View view) {
                 MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), currentWord.getSoundResourceId());
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        // Release media file when completed playing
+                        mediaPlayer.release();
+                    }
+                });
             }
         });
 
