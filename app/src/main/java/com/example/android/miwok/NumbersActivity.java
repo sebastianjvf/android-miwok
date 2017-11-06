@@ -61,6 +61,23 @@ public class NumbersActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
+        /*
+        AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        AudioManager.OnAudioFocusChangeListener focusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+            @Override
+            public void onAudioFocusChange(int i) {
+
+            }
+        };
+
+        AudioFocusRequest audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                .setFocusGain(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                .setOnAudioFocusChangeListener(focusChangeListener).build();
+
+        audioManager.requestAudioFocus(audioFocusRequest);
+        audioManager.abandonAudioFocusRequest(audioFocusRequest);
+        */
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
