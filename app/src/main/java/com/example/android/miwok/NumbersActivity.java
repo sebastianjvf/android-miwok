@@ -23,6 +23,10 @@ import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
+    /*
+     * private MediaPlayer mMediaPlayer;
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,5 +50,19 @@ public class NumbersActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);
+
+        /* Another way of defining the click listeners
+         * However,this would lead to more code
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             @Override
+             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                Word word = words.get(position);
+
+                                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
+                                mMediaPlayer.start();
+             }
+        });
+
+        */
     }
 }
