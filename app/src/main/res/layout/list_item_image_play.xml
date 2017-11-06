@@ -12,34 +12,48 @@
         android:layout_height="@dimen/list_item_height"
         android:src="@mipmap/ic_launcher" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/list_item_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:id="@+id/miwok_word"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="lutti" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/default_translation_word"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            tools:text="one" />
+            <TextView
+                android:id="@+id/miwok_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="lutti" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/default_translation_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                tools:text="one" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_play_arrow_24dp"
+            android:tint="@android:color/white" />
+    </RelativeLayout>
 
 </LinearLayout>
