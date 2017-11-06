@@ -58,8 +58,16 @@ public class NumbersActivity extends AppCompatActivity {
              public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                                 Word word = words.get(position);
 
+
                                 mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
                                 mMediaPlayer.start();
+                                mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mediaPlayer) {
+                                        // Release media file when completed playing
+                                        mediaPlayer.release();
+                                    }
+                                });
              }
         });
 

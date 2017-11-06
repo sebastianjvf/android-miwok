@@ -15,7 +15,17 @@ import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    int colourResourceId;
+    private int colourResourceId;
+    private MediaPlayer mediaPlayer;
+
+    // Save into a private variable to save resources
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            // Release media file when completed playing
+            releaseMediaPlayer();
+        }
+    };
 
     public WordAdapter(@NonNull Context context, @NonNull List<Word> objects, int colourResourceId) {
         super(context, R.layout.list_item_image_play, objects);
@@ -38,7 +48,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Use an LayoutInflater in case that the listItemView is null upon creation of the first items.
         if (listItemView == null) {
             // Parent refers to the outer root view of the newly created item; 'false' is passed to the function because we want to populate
-            // the list item before attaching it to the listItemView
+            // the list item before attaching it to the listItemView; this sets it to null and creates a completely new view.
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_image_play, parent, false);
         }
 
@@ -57,6 +67,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         ImageView wordImage = (ImageView) listItemView.findViewById(R.id.word_image);
 
+        // Set image only if there is a resource, otherwise hide the view
         if (currentWord.getImageResourceId() != -1) {
             wordImage.setImageResource(currentWord.getImageResourceId());
             wordImage.setVisibility(View.VISIBLE);
@@ -67,18 +78,28 @@ public class WordAdapter extends ArrayAdapter<Word> {
         listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), currentWord.getSoundResourceId());
+
+                // Release the mediaPlayer before...
+                releaseMediaPlayer();
+
+                mediaPlayer = MediaPlayer.create(getContext(), currentWord.getSoundResourceId());
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        // Release media file when completed playing
-                        mediaPlayer.release();
-                    }
-                });
+
+                // And after a sound is/was played
+                mediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
 
         return listItemView;
+    }
+
+    /**
+     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
+     */
+    private void releaseMediaPlayer() {
+        if(mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }
