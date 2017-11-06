@@ -15,27 +15,17 @@
  */
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity {
-
-    private MediaPlayer mediaPlayer;
-
-    // Save into a private variable to save resources
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            // Release media file when completed playing
-            releaseMediaPlayer();
-        }
-    };
+public class NumbersActivity extends VocabularyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,59 +51,26 @@ public class NumbersActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        /*
-        AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-        AudioManager.OnAudioFocusChangeListener focusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
-            @Override
-            public void onAudioFocusChange(int i) {
-
-            }
-        };
-
-        AudioFocusRequest audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                .setFocusGain(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-                .setOnAudioFocusChangeListener(focusChangeListener).build();
-
-        audioManager.requestAudioFocus(audioFocusRequest);
-        audioManager.abandonAudioFocusRequest(audioFocusRequest);
-        */
+        // Request AudioFocus
+        audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Word word = englishWords.get(position);
 
+                // Release the resources and abandon AudioFocus
                 releaseMediaPlayer();
 
-                mediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        // Release media file when completed playing
-                        mediaPlayer.release();
-                    }
-                });
+                final int result = audioManager.requestAudioFocus(mAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    // And play
+                    mediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
-    }
-
-    /**
-     * Releases the media resource when the app is stopped
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
-     */
-    private void releaseMediaPlayer() {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
     }
 }

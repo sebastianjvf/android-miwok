@@ -15,27 +15,16 @@
  */
 package com.example.android.miwok;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class FamilyActivity extends AppCompatActivity {
-
-    private MediaPlayer mediaPlayer;
-
-    // Save into a private variable to save resources
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            // Release media file when completed playing
-            releaseMediaPlayer();
-        }
-    };
+public class FamilyActivity extends VocabularyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,37 +55,18 @@ public class FamilyActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Word word = englishWords.get(position);
 
+                // Release the resources and abandon AudioFocus
                 releaseMediaPlayer();
 
-                mediaPlayer = MediaPlayer.create(FamilyActivity.this, word.getSoundResourceId());
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        // Release media file when completed playing
-                        mediaPlayer.release();
-                    }
-                });
+                final int result = audioManager.requestAudioFocus(mAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    // And play
+                    mediaPlayer = MediaPlayer.create(FamilyActivity.this, word.getSoundResourceId());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
-    }
-
-    /**
-     * Releases the media resource when the app is stopped
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        releaseMediaPlayer();
-    }
-
-    /**
-     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
-     */
-    private void releaseMediaPlayer() {
-        if(mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
     }
 }
