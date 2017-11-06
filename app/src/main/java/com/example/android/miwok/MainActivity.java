@@ -59,4 +59,5 @@ public class MainActivity extends AppCompatActivity {
         phrasesTextView.setOnClickListener(new OpenActivityClickListener(this, PhrasesActivity.class));
 
     }
+
 }

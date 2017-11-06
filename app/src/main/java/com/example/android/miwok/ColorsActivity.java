@@ -15,13 +15,27 @@
  */
 package com.example.android.miwok;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ColorsActivity extends AppCompatActivity {
+
+    private MediaPlayer mediaPlayer;
+
+    // Save into a private variable to save resources
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            // Release media file when completed playing
+            releaseMediaPlayer();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +43,7 @@ public class ColorsActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         // Add words and their translations to the numbers list
-        ArrayList<Word> englishWords = new ArrayList<Word>();
+        final ArrayList<Word> englishWords = new ArrayList<Word>();
         englishWords.add(new Word("weṭeṭṭi", "red", R.drawable.color_red, R.raw.color_red));
         englishWords.add(new Word("chokokki", "green", R.drawable.color_green, R.raw.color_green));
         englishWords.add(new Word("ṭakaakki", "brown", R.drawable.color_brown, R.raw.color_brown));
@@ -44,5 +58,34 @@ public class ColorsActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Word word = englishWords.get(position);
+
+                releaseMediaPlayer();
+
+                mediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getSoundResourceId());
+                mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        // Release media file when completed playing
+                        mediaPlayer.release();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
+     */
+    private void releaseMediaPlayer() {
+        if(mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

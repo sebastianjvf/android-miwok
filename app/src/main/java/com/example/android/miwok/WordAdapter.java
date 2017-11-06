@@ -1,7 +1,6 @@
 package com.example.android.miwok;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,16 +15,6 @@ import java.util.List;
 public class WordAdapter extends ArrayAdapter<Word> {
 
     private int colourResourceId;
-    private MediaPlayer mediaPlayer;
-
-    // Save into a private variable to save resources
-    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            // Release media file when completed playing
-            releaseMediaPlayer();
-        }
-    };
 
     public WordAdapter(@NonNull Context context, @NonNull List<Word> objects, int colourResourceId) {
         super(context, R.layout.list_item_image_play, objects);
@@ -75,31 +64,6 @@ public class WordAdapter extends ArrayAdapter<Word> {
             wordImage.setVisibility(View.GONE);
         }
 
-        listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Release the mediaPlayer before...
-                releaseMediaPlayer();
-
-                mediaPlayer = MediaPlayer.create(getContext(), currentWord.getSoundResourceId());
-                mediaPlayer.start(); // no need to call prepare(); create() does that for you
-
-                // And after a sound is/was played
-                mediaPlayer.setOnCompletionListener(mCompletionListener);
-            }
-        });
-
         return listItemView;
-    }
-
-    /**
-     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
-     */
-    private void releaseMediaPlayer() {
-        if(mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
     }
 }

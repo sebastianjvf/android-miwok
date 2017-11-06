@@ -15,17 +15,27 @@
  */
 package com.example.android.miwok;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
-    /*
-     * private MediaPlayer mMediaPlayer;
-     */
+    private MediaPlayer mediaPlayer;
+
+    // Save into a private variable to save resources
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            // Release media file when completed playing
+            releaseMediaPlayer();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +43,7 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         // Add words and their translations to the numbers list
-        ArrayList<Word> englishWords = new ArrayList<Word>();
+        final ArrayList<Word> englishWords = new ArrayList<Word>();
         englishWords.add(new Word("lutti", "one", R.drawable.number_one, R.raw.number_one));
         englishWords.add(new Word("otiiko", "two", R.drawable.number_two, R.raw.number_two));
         englishWords.add(new Word("tolookosu", "three", R.drawable.number_three, R.raw.number_three));
@@ -51,26 +61,33 @@ public class NumbersActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        /* Another way of defining the click listeners
-         * However,this would lead to more code
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-             @Override
-             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                Word word = words.get(position);
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Word word = englishWords.get(position);
 
+                releaseMediaPlayer();
 
-                                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
-                                mMediaPlayer.start();
-                                mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                    @Override
-                                    public void onCompletion(MediaPlayer mediaPlayer) {
-                                        // Release media file when completed playing
-                                        mediaPlayer.release();
-                                    }
-                                });
-             }
+                mediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getSoundResourceId());
+                mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        // Release media file when completed playing
+                        mediaPlayer.release();
+                    }
+                });
+            }
         });
+    }
 
-        */
+    /**
+     * Releases the media file used by the MediaPlayer and sets it to null if a resource is still being played
+     */
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }
