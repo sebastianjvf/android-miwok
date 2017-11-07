@@ -16,8 +16,10 @@
 package com.example.android.miwok;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,35 +30,32 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
-        /* Define an OnClickListener class inline and create one instance of it
-         *
-        TextView numbersTextView = (TextView) findViewById(R.id.numbers);
-        numbersTextView.setOnClickListener(new View.OnClickListener() {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(intent);
+            public int getCount() {
+                return 4;
             }
 
-        });
-        */
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return new NumbersFragment();
+                    case 1:
+                        return new ColorsFragment();
+                    case 2:
+                        return new FamilyFragment();
+                    case 3:
+                        return new PhrasesFragment();
+                    default:
+                        return new NumbersFragment();
+                }
+            }
+        };
 
-        // Add a clickListener to numbersTextView
-        TextView numbersTextView = (TextView) findViewById(R.id.numbers);
-        numbersTextView.setOnClickListener(new OpenActivityClickListener(this, NumbersActivity.class));
-
-        // Add a clickListener to numbersTextView
-        TextView familyTextView = (TextView) findViewById(R.id.family);
-        familyTextView.setOnClickListener(new OpenActivityClickListener(this, FamilyActivity.class));
-
-        // Add a clickListener to numbersTextView
-        TextView colorsTextView = (TextView) findViewById(R.id.colors);
-        colorsTextView.setOnClickListener(new OpenActivityClickListener(this, ColorsActivity.class));
-
-        // Add a clickListener to numbersTextView
-        TextView phrasesTextView = (TextView) findViewById(R.id.phrases);
-        phrasesTextView.setOnClickListener(new OpenActivityClickListener(this, PhrasesActivity.class));
+        viewPager.setAdapter(pagerAdapter);
 
     }
 

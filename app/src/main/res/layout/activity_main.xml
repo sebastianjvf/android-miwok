@@ -20,52 +20,9 @@
     android:orientation="vertical"
     tools:context="com.example.android.miwok.MainActivity">
 
-    <FrameLayout
-        style="@style/frame_item"
-        android:background="@color/category_numbers">
-
-        <TextView
-            android:id="@+id/numbers"
-            style="@style/CategoryStyle"
-            android:layout_width="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_numbers" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        style="@style/frame_item"
-        android:background="@color/category_family">
-
-        <TextView
-            android:id="@+id/family"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_family" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        style="@style/frame_item"
-        android:background="@color/category_colors">
-
-        <TextView
-            android:id="@+id/colors"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_colors" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        style="@style/frame_item"
-        android:background="@color/category_phrases">
-
-        <TextView
-            android:id="@+id/phrases"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_phrases" />
-    </FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

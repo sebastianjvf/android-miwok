@@ -42,7 +42,7 @@ public class ColorsFragment extends VocabularyFragment {
 
         // Use a custom ArrayAdapter to fill the ListView with word items
         WordAdapter adapter = new WordAdapter(getActivity(), englishWords, R.color.category_colors);
-        ListView listView = (ListView) getActivity().findViewById(R.id.list);
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
 
         listView.setAdapter(adapter);
 
